@@ -6,7 +6,7 @@ pub fn main() {
     let mut count = 0;
 
     for l in file.lines() {
-        let mut sides = l.split(",").collect::<Vec<&str>>();
+        let sides = l.split(",").collect::<Vec<&str>>();
 
         let left = sides[0].split("-")
             .map(|n| n.parse::<u8>().unwrap())

@@ -69,11 +69,17 @@ pub fn main() {
         let to = words[5].parse::<usize>().unwrap() - 1;
 
         
-        // N (amount) times in , pop column from and push into column to
+        // N (amount) times in , pop column from and save to a vector
+        let mut letters: Vec<char> = Vec::with_capacity(amount);
         for _ in 0..amount {
             if let Some(c) = stacks[from].pop() {
-                stacks[to].push(c);
+                letters.push(c);
             }
+        }
+
+        // Push letters in reverse order
+        for l in letters.iter().rev() {
+            stacks[to].push(*l);
         }
     }
 
