@@ -9,6 +9,9 @@ mod day04a;
 mod day04b;
 mod day05a;
 mod day05b;
+mod day06a;
+mod day06b;
+mod day07a;
 
 fn main() {
     for (j, name) in jobs::jobs().iter() {
