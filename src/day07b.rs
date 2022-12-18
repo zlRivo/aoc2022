@@ -34,10 +34,18 @@ pub fn main() {
         }
     }
 
-    let result: i128 = dir_sizes.into_iter()
-        .filter(|(_, sz)| *sz <= 100000)
-        .map(|(_, sz)| sz as i128)
-        .sum();
+    let free_space = 70000000usize - dir_sizes.get("/").unwrap();
+    let min_dir_size = 30000000usize - free_space;
 
+    let mut sizes = dir_sizes.iter()
+        .map(|(_, sz)| *sz)
+        .collect::<Vec<usize>>();
+    
+    sizes.sort();
+
+    let result = sizes.iter()
+        .find(|n| **n >= min_dir_size)
+        .unwrap();
+    
     println!("{result}");
 }

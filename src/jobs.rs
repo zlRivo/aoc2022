@@ -13,5 +13,6 @@ pub fn jobs() -> &'static [(fn(), &'static str)] {
         (crate::day06a::main, "day06a"),
         (crate::day06b::main, "day06b"),
         (crate::day07a::main, "day07a"),
+        (crate::day07b::main, "day07b"),
     ]
 }
