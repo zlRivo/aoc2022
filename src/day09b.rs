@@ -7,8 +7,7 @@ pub fn main() {
 
     let mut visited: HashSet<(i32, i32)> = HashSet::new();
     let start_pos: (i32, i32) = (0, 0);
-    let mut head = start_pos;
-    let mut knots = vec![start_pos; 10];
+    let mut knots = [start_pos; 10];
 
     for l in file.lines() {
         let (dir, amount) = l.split_once(' ').unwrap();
@@ -16,23 +15,28 @@ pub fn main() {
 
         for _ in 0..amount {
             match dir {
-                "R" => head.0 += 1,
-                "L" => head.0 -= 1,
-                "U" => head.1 -= 1,
-                "D" => head.1 += 1,
+                "R" => knots[9].0 += 1,
+                "L" => knots[9].0 -= 1,
+                "U" => knots[9].1 -= 1,
+                "D" => knots[9].1 += 1,
                 _ => unreachable!()
             }
-            let diff_x = head.0 - tail.0;
-            let diff_y = head.1 - tail.1;
 
-            // If the tail is too far
-            if diff_x.abs() > 1 || diff_y.abs() > 1 {
-                // Move it in the right direction
-                tail.0 += diff_x.signum();
-                tail.1 += diff_y.signum();
+            // Update each knot
+            for i in (0..9).rev() {
+                let diff_x = knots[i + 1].0 - knots[i].0;
+                let diff_y = knots[i + 1].1 - knots[i].1;
+
+                // If the knot is too far
+                if diff_x.abs() > 1 || diff_y.abs() > 1 {
+                    // Move it in the right direction
+                    knots[i].0 += diff_x.signum();
+                    knots[i].1 += diff_y.signum();
+                }
             }
 
-            visited.insert(tail);
+            // Push last knot
+            visited.insert(knots[0]);
         }
     }
 
